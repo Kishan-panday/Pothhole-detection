@@ -1,0 +1,41 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+.env
+venv/
+.venv/
+
+# Node modules
+node_modules/
+
+# Dataset
+road_dataset/
+
+# Uploaded/test images
+uploads/
+test*.jpg
+test*.jpeg
+test*.png
+*.JPG
+
+# Trained ML models
+*.h5
+*.keras
+*.zip
+
+# Prediction logs
+predict_stdout*.txt
+predict_stderr*.txt
+model_info.txt
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db

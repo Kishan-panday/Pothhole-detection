@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road Condition Detector - AI Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../public/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo-icon">🛣️</span>
+                <span class="logo-text">Road Condition Detector</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#history" class="nav-link">History</a>
+                <a href="#about" class="nav-link">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Road Condition Detection</h1>
+                <p class="hero-subtitle">AI-Powered Infrastructure Assessment</p>
+                <p class="hero-description">Analyze road conditions using advanced deep learning. Get instant insights on pavement quality and maintenance needs.</p>
+                <button class="cta-button" onclick="document.getElementById('upload-section').scrollIntoView({behavior: 'smooth'})">
+                    Start Analysis →
+                </button>
+            </div>
+            <div class="hero-image">
+                <div class="hero-icon">🛣️</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section class="upload-section" id="upload-section">
+        <div class="container">
+            <h2 class="section-title">Upload Road Image</h2>
+            <p class="section-subtitle">Select an image of a road surface for AI analysis</p>
+            
+            <div class="user-info">
+                <input type="text" id="userId" placeholder="User ID (optional)" class="user-input">
+                <input type="text" id="location" placeholder="Location/Road Name (optional)" class="user-input">
+            </div>
+            
+            <div class="upload-container">
+                <div class="upload-box" id="uploadBox">
+                    <input type="file" id="imageInput" accept="image/jpeg,image/jpg,image/png,image/bmp" hidden>
+                    <div class="upload-content">
+                        <div class="upload-icon">📸</div>
+                        <h3>Click or Drag Image Here</h3>
+                        <p>Supported formats: JPG, PNG, BMP</p>
+                        <p class="file-size">Max size: 16 MB</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h4>💡 Tips for Best Results:</h4>
+                <ul class="tips-list">
+                    <li>Use clear, daytime images with good lighting</li>
+                    <li>Include the full road surface in frame</li>
+                    <li>Avoid extreme angles or distortions</li>
+                    <li>Ensure the image is not blurry</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="resultsSection" class="results-section" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">Analysis Results</h2>
+            
+            <div class="results-container">
+                <!-- Image Preview -->
+                <div class="result-card image-preview-card">
+                    <h3>Uploaded Image</h3>
+                    <img id="previewImage" src="" alt="Uploaded road image" class="preview-image">
+                </div>
+
+                <!-- Prediction Results -->
+                <div class="result-card prediction-card">
+                    <h3>Prediction Result</h3>
+                    <div id="predictionResult" class="prediction-result">
+                        <!-- Result will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Confidence Breakdown -->
+            <div class="result-card full-width">
+                <h3>Detailed Prediction Breakdown</h3>
+                <div class="prediction-breakdown">
+                    <div id="breakdownChart" class="breakdown-chart">
+                        <!-- Chart will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="result-card full-width">
+                <h3>Maintenance Recommendations</h3>
+                <div id="recommendations" class="recommendations">
+                    <!-- Recommendations will be inserted here -->
+                </div>
+            </div>
+
+            <button class="cta-button secondary-button" onclick="resetForm()">
+                Analyze Another Image
+            </button>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="historySection" class="history-section">
+        <div class="container">
+            <h2 class="section-title">Prediction History</h2>
+            
+            <div class="history-controls">
+                <button class="history-button" onclick="loadPredictionHistory()">Refresh History</button>
+                <button class="history-button" onclick="toggleHistoryView()">Toggle View</button>
+            </div>
+
+            <div id="statsContainer" class="stats-grid" style="display: none;">
+                <!-- Stats will be inserted here -->
+            </div>
+
+            <div id="historyContainer" class="history-container">
+                <p class="empty-state">No predictions yet</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered</h3>
+                    <p>Advanced MobileNetV2 deep learning model trained on thousands of road images</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Real-Time Analysis</h3>
+                    <p>Instant predictions on image upload with confidence scores</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <h3>Data Persistence</h3>
+                    <p>All predictions stored in MongoDB for historical analysis</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Detailed Breakdown</h3>
+                    <p>See confidence percentages for all road conditions</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Responsive</h3>
+                    <p>Works seamlessly on desktop, tablet, and mobile devices</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3>Professional Grade</h3>
+                    <p>Production-ready for infrastructure management teams</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2 class="section-title">About This Project</h2>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Road Infrastructure Assessment</h3>
+                    <p>
+                        This AI system helps municipalities and transportation departments quickly assess road conditions 
+                        and identify maintenance priorities. By analyzing images of road surfaces, the model classifies 
+                        pavement conditions into four categories, enabling data-driven maintenance decisions.
+                    </p>
+                    <h4>How It Works:</h4>
+                    <ol>
+                        <li>Upload a clear image of a road surface</li>
+                        <li>The AI analyzes the image in real-time</li>
+                        <li>Receive instant classification and recommendations</li>
+                        <li>View prediction history and statistics</li>
+                        <li>Use insights for maintenance planning</li>
+                    </ol>
+                </div>
+
+                <div class="about-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Classification Categories</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">224×224</div>
+                        <div class="stat-label">Image Resolution</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">5-Fold</div>
+                        <div class="stat-label">Cross-Validation</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">Node.js</div>
+                        <div class="stat-label">Backend</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Road Condition Detection AI | Built with Node.js, Express & MongoDB</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+        <p>Analyzing image...</p>
+    </div>
+
+    <!-- Modal for prediction details -->
+    <div id="predictionModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Prediction Details</h2>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="../public/script.js"></script>
+</body>
+</html>
