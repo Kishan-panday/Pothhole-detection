@@ -21,7 +21,6 @@ test*.png
 *.JPG
 
 # Trained ML models
-*.h5
 *.keras
 *.zip
 
